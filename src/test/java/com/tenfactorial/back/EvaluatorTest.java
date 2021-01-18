@@ -26,7 +26,7 @@ public class EvaluatorTest {
     @Test
     public void testNumbersAreJustPushedOntoTheStack() throws StackUnderflowException {
         assertEquals(
-                Arrays.asList(1, 2, 3, 4, 5),
+                Arrays.asList(5, 4, 3, 2, 1),
                 evaluator.evaluateProgram(Collections.singletonList("1 2 3 4 5")));
     }
 
@@ -103,9 +103,7 @@ public class EvaluatorTest {
 
     @Test
     public void testErrorIfDividingByZero() throws StackUnderflowException {
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("Division by 0");
-
+        expectedException.expect(ArithmeticException.class);
         evaluator.evaluateProgram(Collections.singletonList("4 0 /"));
     }
 
@@ -145,7 +143,7 @@ public class EvaluatorTest {
     @Test
     public void testDupCopiesTopValueOnTheStack() throws StackUnderflowException {
         assertEquals(
-                Arrays.asList(1, 2, 2),
+                Arrays.asList(2, 2, 1),
                 evaluator.evaluateProgram(Collections.singletonList("1 2 dup")));
     }
 
@@ -178,14 +176,14 @@ public class EvaluatorTest {
     @Test
     public void testSwapSwapsTheTopTwosValueOnTheStackIfTheyAreTheOnlyOnes() throws StackUnderflowException {
         assertEquals(
-                Arrays.asList(2, 1),
+                Arrays.asList(1, 2),
                 evaluator.evaluateProgram(Collections.singletonList("1 2 swap")));
     }
 
     @Test
     public void testSwapSwapsTheTopTwosValueOnTheStackIfTheyAreNotTheOnlyOnes() throws StackUnderflowException {
         assertEquals(
-                Arrays.asList(1, 3, 2),
+                Arrays.asList(2, 3, 1),
                 evaluator.evaluateProgram(Collections.singletonList("1 2 3 swap")));
     }
 
@@ -211,7 +209,7 @@ public class EvaluatorTest {
     @Test
     public void testOverCopiesTheSecondElementIfThereAreMoreThanTwo() throws StackUnderflowException {
         assertEquals(
-                Arrays.asList(1, 2, 3, 2),
+                Arrays.asList(2, 3, 2, 1),
                 evaluator.evaluateProgram(Collections.singletonList("1 2 3 over")));
     }
 
@@ -237,7 +235,7 @@ public class EvaluatorTest {
     @Test
     public void testUserDefinedOperatorsAreEvaluatedInTheCorrectOrder() throws StackUnderflowException {
         assertEquals(
-                Arrays.asList(1, 2, 3),
+                Arrays.asList(3, 2, 1),
                 evaluator.evaluateProgram(Arrays.asList(": countup 1 2 3 ;", "countup")));
     }
 
@@ -265,7 +263,7 @@ public class EvaluatorTest {
     @Test
     public void testCanUseDifferentWordsWithTheSameName() throws StackUnderflowException {
         assertEquals(
-                Arrays.asList(5, 6),
+                Arrays.asList(6, 5),
                 evaluator.evaluateProgram(Arrays.asList(": foo 5 ;", ": bar foo ;", ": foo 6 ;", "bar foo")));
     }
 
@@ -309,7 +307,7 @@ public class EvaluatorTest {
     @Test
     public void testSwapIsCaseInsensitive() throws StackUnderflowException {
         assertEquals(
-                Arrays.asList(2, 3, 4, 1),
+                Arrays.asList(1, 4, 3, 2),
                 evaluator.evaluateProgram(Collections.singletonList("1 2 SWAP 3 Swap 4 swap")));
     }
 

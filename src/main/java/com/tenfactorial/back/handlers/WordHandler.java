@@ -34,16 +34,11 @@ public interface WordHandler {
                 .attach(new BinaryOperationHandler("+", (s, x, y) -> s.push(y + x)))
                 .attach(new BinaryOperationHandler("-", (s, x, y) -> s.push(y - x)))
                 .attach(new BinaryOperationHandler("*", (s, x, y) -> s.push(y * x)))
-                .attach(new BinaryOperationHandler("/", (s, x, y) -> {
-                    if (x == 0) {
-                        throw new IllegalArgumentException("Division by 0");
-                    }
-                    s.push(y / x);
-                }))
-                .attach((new UnaryOperationHandler("PRINT", (s, x) -> System.out.print(x))))
-                .attach((new UnaryOperationHandler("PRINTLN", printlnFunction)))
-                .attach((new UnaryOperationHandler(".", printlnFunction)))
-                .attach((new NullaryOperationHandler("CLEAR", LinkedList::clear)))
+                .attach(new BinaryOperationHandler("/", (s, x, y) -> s.push(y / x)))
+                .attach(new UnaryOperationHandler("PRINT", (s, x) -> System.out.print(x)))
+                .attach(new UnaryOperationHandler("PRINTLN", printlnFunction))
+                .attach(new UnaryOperationHandler(".", printlnFunction))
+                .attach(new NullaryOperationHandler("CLEAR", LinkedList::clear))
                 .attach(new UnknownOperationHandler((word) -> {
                     throw new IllegalArgumentException(String.format("Unknown word '%s'", word));
                 }));

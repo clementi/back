@@ -3,13 +3,7 @@ package com.tenfactorial.back;
 import com.tenfactorial.back.exceptions.StackUnderflowException;
 import com.tenfactorial.back.handlers.WordHandler;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Evaluator {
@@ -21,7 +15,6 @@ public class Evaluator {
 
     public List<Integer> evaluateProgram(List<String> program) throws StackUnderflowException {
         evaluate(program);
-        Collections.reverse(stack);
         return stack;
     }
 
