@@ -1,4 +1,4 @@
-package com.tenfactorial.back.handlers;
+package com.tenfactorial.back.functions;
 
 import java.util.LinkedList;
 

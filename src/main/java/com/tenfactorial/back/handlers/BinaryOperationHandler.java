@@ -1,5 +1,7 @@
 package com.tenfactorial.back.handlers;
 
+import com.tenfactorial.back.functions.BinaryStackFunction;
+
 import java.util.LinkedList;
 
 public class BinaryOperationHandler implements WordHandler {
@@ -16,7 +18,7 @@ public class BinaryOperationHandler implements WordHandler {
 
     @Override
     public void handleWord(String word, LinkedList<Integer> stack) {
-        if (word.toUpperCase().equals(this.word.toUpperCase())) {
+        if (word.equalsIgnoreCase(this.word)) {
             if (stack.size() < 2) {
                 throw new IllegalArgumentException(String.format("%s requires that the stack contain at least 2 values", opName));
             }

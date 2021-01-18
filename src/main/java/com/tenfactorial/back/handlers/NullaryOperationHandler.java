@@ -1,5 +1,7 @@
 package com.tenfactorial.back.handlers;
 
+import com.tenfactorial.back.functions.NullaryStackFunction;
+
 import java.util.LinkedList;
 
 public class NullaryOperationHandler implements WordHandler {
