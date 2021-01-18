@@ -30,6 +30,15 @@ Use `gradlew.bat` if you're on Windows.
 ```sh
 $ gradle jar && java -jar ./build/libs/back.jar
 ```
+Or you can use the provided script:
+```sh
+$ # *nix Shell
+$ ./back
+```
+```powershell
+> # PowerShell
+> .\back
+```
 
 # Origin
 
