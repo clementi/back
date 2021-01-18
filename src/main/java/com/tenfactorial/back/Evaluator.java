@@ -1,5 +1,6 @@
 package com.tenfactorial.back;
 
+import com.tenfactorial.back.exceptions.StackUnderflowException;
 import com.tenfactorial.back.handlers.WordHandler;
 
 import java.util.Arrays;
@@ -18,25 +19,29 @@ public class Evaluator {
 
     private final WordHandler handlers = WordHandler.buildBuiltins();
 
-    public List<Integer> evaluateProgram(List<String> program) {
+    public List<Integer> evaluateProgram(List<String> program) throws StackUnderflowException {
         evaluate(program);
         Collections.reverse(stack);
         return stack;
     }
 
-    private void evaluate(List<String> program) {
-        program.forEach(this::execute);
-    }
-
-    private void execute(String line) {
-        if (isDefinitionLine(line)) {
-            storeDefinition(line);
-        } else {
-            Arrays.stream(line.split(" ")).forEach(this::handleToken);
+    private void evaluate(List<String> program) throws StackUnderflowException {
+        for (String line : program) {
+            execute(line);
         }
     }
 
-    private void handleToken(String token) {
+    private void execute(String line) throws StackUnderflowException {
+        if (isDefinitionLine(line)) {
+            storeDefinition(line);
+        } else {
+            for (var token : line.split(" ")) {
+                handleToken(token);
+            }
+        }
+    }
+
+    private void handleToken(String token) throws StackUnderflowException {
         if (isPrimitive(token)) {
             stack.push(Integer.parseInt(token));
         } else if (isUserDefinedWord(token)) {
@@ -80,12 +85,12 @@ public class Evaluator {
         return line.startsWith(":") && line.endsWith(";");
     }
 
-    private void executeUserDefinedWord(String word) {
+    private void executeUserDefinedWord(String word) throws StackUnderflowException {
         String definition = userDefinitions.get(word.toUpperCase());
         evaluate(Collections.singletonList(definition));
     }
 
-    private void executeBuiltinWord(String word) {
+    private void executeBuiltinWord(String word) throws StackUnderflowException {
         handlers.handleWord(word, stack);
     }
 

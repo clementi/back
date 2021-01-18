@@ -1,5 +1,6 @@
 package com.tenfactorial.back.handlers;
 
+import com.tenfactorial.back.exceptions.StackUnderflowException;
 import com.tenfactorial.back.functions.NullaryStackFunction;
 
 import java.util.LinkedList;
@@ -15,7 +16,7 @@ public class NullaryOperationHandler implements WordHandler {
     }
 
     @Override
-    public void handleWord(String word, LinkedList<Integer> stack) {
+    public void handleWord(String word, LinkedList<Integer> stack) throws StackUnderflowException {
         if (word.equalsIgnoreCase(this.word)) {
             function.apply(stack);
         } else {

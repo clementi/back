@@ -35,7 +35,7 @@ public class Main {
             var listLine = Collections.singletonList(line);
             try {
                 stack = evaluator.evaluateProgram(listLine);
-            } catch (IllegalArgumentException e) {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
             printStack(stack);

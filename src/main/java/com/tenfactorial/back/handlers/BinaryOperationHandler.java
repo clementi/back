@@ -1,26 +1,25 @@
 package com.tenfactorial.back.handlers;
 
+import com.tenfactorial.back.exceptions.StackUnderflowException;
 import com.tenfactorial.back.functions.BinaryStackFunction;
 
 import java.util.LinkedList;
 
 public class BinaryOperationHandler implements WordHandler {
     private final String word;
-    private final String opName;
     private final BinaryStackFunction function;
     private WordHandler next;
 
-    public BinaryOperationHandler(String word, String opName, BinaryStackFunction function) {
+    public BinaryOperationHandler(String word, BinaryStackFunction function) {
         this.word = word;
-        this.opName = opName;
         this.function = function;
     }
 
     @Override
-    public void handleWord(String word, LinkedList<Integer> stack) {
+    public void handleWord(String word, LinkedList<Integer> stack) throws StackUnderflowException {
         if (word.equalsIgnoreCase(this.word)) {
             if (stack.size() < 2) {
-                throw new IllegalArgumentException(String.format("%s requires that the stack contain at least 2 values", opName));
+                throw new StackUnderflowException();
             }
             int operand1 = stack.pop();
             int operand2 = stack.pop();
