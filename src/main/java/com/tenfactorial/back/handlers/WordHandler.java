@@ -36,13 +36,7 @@ public interface WordHandler {
                 .attach((new UnaryOperationHandler("PRINT", "Printing", (s, x) -> System.out.print(x))))
                 .attach((new UnaryOperationHandler("PRINTLN", "Printing with a newline", (s, x) -> System.out.println(x))))
                 .attach((new NullaryOperationHandler("CLEAR", LinkedList::clear)))
-                .attach((new NullaryOperationHandler(".", (s) -> {
-                    if (s.isEmpty()) {
-                        throw new EmptyStackException();
-                    } else {
-                        System.out.println(s.pop());
-                    }
-                })))
+                .attach((new NullaryOperationHandler(".", (s) -> System.out.println(s.pop()))))
                 .attach(new UnknownOperationHandler((word) -> {
                     throw new IllegalArgumentException(String.format("Unknown word '%s'", word));
                 }));
