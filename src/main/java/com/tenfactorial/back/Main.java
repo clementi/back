@@ -10,7 +10,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("Back interpreter");
-        System.out.println("Press CTRL-C to exit");
+        System.out.println("Enter :quit or :q to exit");
 
         var reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -22,10 +22,10 @@ public class Main {
         printPrompt(run);
         String line = reader.readLine();
 
-        while (!line.equals("quit")) {
+        while (!(line.equalsIgnoreCase(":quit") || line.equalsIgnoreCase(":q"))) {
             if (line.equals("")) {
-                System.out.println(stack);
-                printPrompt(run);
+                printStack(stack);
+                printPrompt(++run);
                 line = reader.readLine();
                 continue;
             }
@@ -36,7 +36,7 @@ public class Main {
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
-            System.out.println(stack);
+            printStack(stack);
             printPrompt(++run);
             line = reader.readLine();
         }
@@ -44,5 +44,11 @@ public class Main {
 
     private static void printPrompt(int run) {
         System.out.printf("back [%03d]> ", run);
+    }
+
+    private static void printStack(List<Integer> stack) {
+        if (!stack.isEmpty()) {
+            System.out.println(stack);
+        }
     }
 }
