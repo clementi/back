@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 public class Evaluator {
 
     private final LinkedList<Integer> stack = new LinkedList<>();
-    private final Set<String> builtinWords = Set.of("DUP", "DROP", "SWAP", "OVER", "+", "-", "*", "/", "CLEAR", ".", "PRINT", "PRINTLN");
     private final Map<String, String> userDefinitions = new HashMap<>();
 
     private final WordHandler handlers = WordHandler.buildBuiltins();
@@ -100,6 +99,6 @@ public class Evaluator {
     }
 
     private boolean isBuiltinWord(String token) {
-        return builtinWords.contains(token.toUpperCase());
+        return WordHandler.builtins.contains(token.toUpperCase());
     }
 }

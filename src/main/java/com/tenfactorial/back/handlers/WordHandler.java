@@ -1,12 +1,14 @@
 package com.tenfactorial.back.handlers;
 
-import java.util.EmptyStackException;
 import java.util.LinkedList;
+import java.util.Set;
 
 public interface WordHandler {
     void handleWord(String word, LinkedList<Integer> stack);
 
     WordHandler attach(WordHandler next);
+
+    Set<String> builtins = Set.of("DUP", "DROP", "SWAP", "OVER", "+", "-", "*", "/", "CLEAR", ".", "PRINT", "PRINTLN");
 
     static WordHandler buildBuiltins() {
         WordHandler head = new UnaryOperationHandler("DUP", "Duplicating", (s, x) -> {
