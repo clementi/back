@@ -23,10 +23,14 @@ terminal:
 $ gradle test
 ```
 
-> Use `gradlew.bat` if you're on Windows
+Use `gradlew.bat` if you're on Windows.
 
 # Running the evaluator
 
 ```sh
 $ gradle jar && java -jar ./build/libs/back.jar
 ```
+
+# Origin
+
+Back originated as a solution to the "Forth" exercise at [exercism](https://exercism.io).
