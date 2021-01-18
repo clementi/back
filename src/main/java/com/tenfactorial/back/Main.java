@@ -1,5 +1,7 @@
 package com.tenfactorial.back;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -22,7 +24,7 @@ public class Main {
         printPrompt(run);
         String line = reader.readLine();
 
-        while (!(line.equalsIgnoreCase(":quit") || line.equalsIgnoreCase(":q"))) {
+        while (!isQuit(line)) {
             if (line.equals("")) {
                 printStack(stack);
                 printPrompt(++run);
@@ -50,5 +52,9 @@ public class Main {
         if (!stack.isEmpty()) {
             System.out.println(stack);
         }
+    }
+
+    private static boolean isQuit(@NotNull String line) {
+        return line.equalsIgnoreCase(":quit") || line.equalsIgnoreCase(":q");
     }
 }
