@@ -50,7 +50,7 @@ public class Main {
 
     private static void printStack(List<Integer> stack) {
         if (!stack.isEmpty()) {
-            System.out.println("--- Data stack:");
+            System.out.println("\n--- Data stack:");
             for (int i = stack.size() - 1; i >= 0; i--) {
                 System.out.println(stack.get(i));
             }
