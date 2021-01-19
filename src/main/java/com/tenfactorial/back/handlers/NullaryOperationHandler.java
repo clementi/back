@@ -20,10 +20,8 @@ public class NullaryOperationHandler implements WordHandler {
     public void handleWord(String word, LinkedList<Integer> stack) throws StackUnderflowException {
         if (word.equalsIgnoreCase(this.word.toString())) {
             function.apply(stack);
-        } else {
-            if (next != null) {
-                next.handleWord(word, stack);
-            }
+        } else if (next != null) {
+            next.handleWord(word, stack);
         }
     }
 
