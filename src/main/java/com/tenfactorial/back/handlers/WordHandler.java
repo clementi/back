@@ -12,8 +12,6 @@ public interface WordHandler {
 
     WordHandler attach(WordHandler next);
 
-//    Set<String> builtins = Set.of(DUP, DROP, SWAP, OVER, PLUS, MINUS, STAR, SLASH, CLEAR, DOT, PRINT, PRINTLN, GREATER_THAN, EQUALS, LESS_THAN);
-
     static WordHandler buildBuiltins() {
         WordHandler head = new UnaryOperationHandler(DUP, (s, x) -> {
             s.push(x);
