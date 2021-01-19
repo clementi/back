@@ -56,17 +56,17 @@ public interface WordHandler {
                     }
                 }))
                 .attach(new BinaryOperationHandler(AND, (s, x, y) -> {
-                    if (y * x == 0) {
+                    if (y == 0) {
                         s.push(0);
                     } else {
-                        s.push(1);
+                        s.push(x);
                     }
                 }))
                 .attach(new BinaryOperationHandler(OR, (s, x, y) -> {
-                    if (y != 0 || x != 0) {
-                        s.push(1);
+                    if (y != 0) {
+                        s.push(y);
                     } else {
-                        s.push(0);
+                        s.push(x);
                     }
                 }))
                 .attach(new UnaryOperationHandler(NOT, (s, x) -> {
