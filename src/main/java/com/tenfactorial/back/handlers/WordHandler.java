@@ -11,7 +11,7 @@ public interface WordHandler {
 
     WordHandler attach(WordHandler next);
 
-    Set<String> builtins = Set.of("DUP", "DROP", "SWAP", "OVER", "+", "-", "*", "/", "CLEAR", ".", "PRINT", "PRINTLN");
+    Set<String> builtins = Set.of("DUP", "DROP", "SWAP", "OVER", "+", "-", "*", "/", "CLEAR", ".", "PRINT", "PRINTLN", ">", "==", "<");
 
     static WordHandler buildBuiltins() {
         WordHandler head = new UnaryOperationHandler("DUP", (s, x) -> {
@@ -35,6 +35,27 @@ public interface WordHandler {
                 .attach(new BinaryOperationHandler("-", (s, x, y) -> s.push(y - x)))
                 .attach(new BinaryOperationHandler("*", (s, x, y) -> s.push(y * x)))
                 .attach(new BinaryOperationHandler("/", (s, x, y) -> s.push(y / x)))
+                .attach(new BinaryOperationHandler(">", (s, x, y) -> {
+                    if (y > x) {
+                        s.push(1);
+                    } else {
+                        s.push(0);
+                    }
+                }))
+                .attach(new BinaryOperationHandler("==", (s, x, y) -> {
+                    if (y == x) {
+                        s.push(1);
+                    } else {
+                        s.push(0);
+                    }
+                }))
+                .attach(new BinaryOperationHandler("<", (s, x, y) -> {
+                    if (y < x) {
+                        s.push(1);
+                    } else {
+                        s.push(0);
+                    }
+                }))
                 .attach(new UnaryOperationHandler("PRINT", (s, x) -> System.out.print(x)))
                 .attach(new UnaryOperationHandler("PRINTLN", printlnFunction))
                 .attach(new UnaryOperationHandler(".", printlnFunction))
