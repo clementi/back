@@ -6,16 +6,17 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 public class Repl {
-    public void run() throws IOException {
-        var properties = loadProperties();
+    private final Properties properties;
 
-        System.out.printf("Back %s%n", properties.getProperty("version"));
+    public Repl() throws IOException {
+        this.properties = loadProperties();
+    }
+
+    public void run() throws IOException {
+        System.out.printf("%s %s%n", properties.getProperty("name"), properties.getProperty("version"));
         System.out.println("Enter :quit or :q to exit");
 
         var reader = new BufferedReader(new InputStreamReader(System.in));
@@ -62,8 +63,8 @@ public class Repl {
         }
     }
 
-    private static void printPrompt(int run) {
-        System.out.printf("back [%03d]> ", run);
+    private void printPrompt(int run) {
+        System.out.printf("%s [%03d]> ", properties.getProperty("name").toLowerCase(), run);
     }
 
     private static void printStack(List<Integer> stack) {
