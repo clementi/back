@@ -1,23 +1,24 @@
 package com.tenfactorial.back.handlers;
 
+import com.tenfactorial.back.BuiltinWord;
 import com.tenfactorial.back.exceptions.StackUnderflowException;
 import com.tenfactorial.back.functions.UnaryStackFunction;
 
 import java.util.LinkedList;
 
 public class UnaryOperationHandler implements WordHandler {
-    private final String word;
+    private final BuiltinWord word;
     private final UnaryStackFunction function;
     private WordHandler next;
 
-    public UnaryOperationHandler(String word, UnaryStackFunction function) {
+    public UnaryOperationHandler(BuiltinWord word, UnaryStackFunction function) {
         this.word = word;
         this.function = function;
     }
 
     @Override
     public void handleWord(String word, LinkedList<Integer> stack) throws StackUnderflowException {
-        if (word.equalsIgnoreCase(this.word)) {
+        if (word.equalsIgnoreCase(this.word.toString())) {
             if (stack.isEmpty()) {
                 throw new StackUnderflowException();
             }

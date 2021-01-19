@@ -97,6 +97,8 @@ public class Evaluator {
     }
 
     private boolean isBuiltinWord(String token) {
-        return WordHandler.builtins.contains(token.toUpperCase());
+        return Arrays.stream(BuiltinWord.values())
+                .map(BuiltinWord::toString)
+                .anyMatch(v -> v.equals(token.toUpperCase()));
     }
 }
