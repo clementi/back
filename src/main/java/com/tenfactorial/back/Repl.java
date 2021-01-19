@@ -13,16 +13,7 @@ import java.util.Properties;
 
 public class Repl {
     public void run() throws IOException {
-        var properties = new Properties();
-        var propertiesFileName = "config.properties";
-
-        var inputStream = getClass().getClassLoader().getResourceAsStream(propertiesFileName);
-
-        if (inputStream != null) {
-            properties.load(inputStream);
-        } else {
-            throw new FileNotFoundException("properties not found");
-        }
+        var properties = loadProperties();
 
         System.out.printf("Back %s%n", properties.getProperty("version"));
         System.out.println("Enter :quit or :q to exit");
@@ -54,6 +45,20 @@ public class Repl {
             printStack(stack);
             printPrompt(++run);
             line = reader.readLine();
+        }
+    }
+
+    private Properties loadProperties() throws IOException {
+        var properties = new Properties();
+        var propertiesFileName = "config.properties";
+
+        var inputStream = getClass().getClassLoader().getResourceAsStream(propertiesFileName);
+
+        if (inputStream != null) {
+            properties.load(inputStream);
+            return properties;
+        } else {
+            throw new FileNotFoundException("properties not found");
         }
     }
 
