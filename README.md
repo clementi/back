@@ -6,11 +6,15 @@ The evaluator supports the following built-in words:
 
 - `+`, `-`, `*`, `/` (integer arithmetic)
 - `DUP`, `DROP`, `SWAP`, `OVER`, `CLEAR`, `.` (stack manipulation)
+- `>`, `=`, `<` (integer comparisons)
+- `AND`, `OR`, `NOT` (boolean operators) 
+- `PRINT`, `PRINTLN` (console output)
 
 The evaluator supports defining new words using the
 customary syntax: `: word-name definition ;`.
 
-The only data type that is supported is 32-bit signed integers.
+The only data type that is currently supported is 32-bit signed integers.
+The integer comparison words evaluate to integers (`1` for true, `0` for false).
 
 Words are case-insensitive.
 

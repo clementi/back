@@ -55,6 +55,27 @@ public interface WordHandler {
                         s.push(0);
                     }
                 }))
+                .attach(new BinaryOperationHandler(AND, (s, x, y) -> {
+                    if (y * x == 0) {
+                        s.push(0);
+                    } else {
+                        s.push(1);
+                    }
+                }))
+                .attach(new BinaryOperationHandler(OR, (s, x, y) -> {
+                    if (y != 0 || x != 0) {
+                        s.push(1);
+                    } else {
+                        s.push(0);
+                    }
+                }))
+                .attach(new UnaryOperationHandler(NOT, (s, x) -> {
+                    if (x == 0) {
+                        s.push(1);
+                    } else {
+                        s.push(0);
+                    }
+                }))
                 .attach(new UnaryOperationHandler(PRINT, (s, x) -> System.out.print(x)))
                 .attach(new UnaryOperationHandler(PRINTLN, printlnFunction))
                 .attach(new UnaryOperationHandler(DOT, printlnFunction))

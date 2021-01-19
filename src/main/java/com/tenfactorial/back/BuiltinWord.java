@@ -15,7 +15,10 @@ public enum BuiltinWord {
     PRINTLN("PRINTLN"),
     GREATER_THAN(">"),
     EQUALS("="),
-    LESS_THAN("<");
+    LESS_THAN("<"),
+    AND("AND"),
+    OR("OR"),
+    NOT("NOT");
 
     private final String value;
 
