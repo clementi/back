@@ -1,0 +1,11 @@
+: nor or not ;
+0 0 or println
+0 0 nor println
+13 15 or println
+0 10 or println
+0 10 nor println
+: nand and not ;
+0 0 nand println
+1 1 nand println
+1 2 and println
+0 25 nand println
