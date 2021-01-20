@@ -7,7 +7,7 @@ public class Main {
         if (args.length < 1) {
             new Repl().run();
         } else {
-            // TODO: Execute a file
+            new Executor().execute(args[0]);
         }
     }
 }
