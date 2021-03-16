@@ -29,7 +29,7 @@ public class Repl {
         printPrompt(run);
         String line = reader.readLine();
 
-        while (!isQuit(line)) {
+        while (line != null && !isQuit(line)) {
             if (line.equals("")) {
                 printStack(stack);
                 printPrompt(++run);
