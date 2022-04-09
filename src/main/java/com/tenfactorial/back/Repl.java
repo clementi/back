@@ -2,6 +2,9 @@ package com.tenfactorial.back;
 
 import org.jetbrains.annotations.NotNull;
 
+import static java.lang.System.in;
+import static java.lang.System.out;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,10 +19,10 @@ public class Repl {
     }
 
     public void run() throws IOException {
-        System.out.printf("%s %s%n", properties.getProperty("name"), properties.getProperty("version"));
-        System.out.println("Enter :quit or :q to exit");
+        out.printf("%s %s%n", properties.getProperty("name"), properties.getProperty("version"));
+        out.println("Enter :quit or :q to exit");
 
-        try (var reader = new BufferedReader(new InputStreamReader(System.in))) {
+        try (var reader = new BufferedReader(new InputStreamReader(in))) {
             var evaluator = new Evaluator();
 
             var run = 1;
@@ -40,7 +43,7 @@ public class Repl {
                 try {
                     stack = evaluator.evaluateProgram(listLine);
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    out.println(e.getMessage());
                 }
                 printStack(stack);
                 printPrompt(++run);
@@ -64,14 +67,14 @@ public class Repl {
     }
 
     private void printPrompt(int run) {
-        System.out.printf("%s [%03d]> ", properties.getProperty("name").toLowerCase(), run);
+        out.printf("%s [%03d]> ", properties.getProperty("name").toLowerCase(), run);
     }
 
     private static void printStack(List<Integer> stack) {
         if (!stack.isEmpty()) {
-            System.out.println("\n--- Data stack:");
+            out.println("\n--- Data stack:");
             for (int i = stack.size() - 1; i >= 0; i--) {
-                System.out.println(stack.get(i));
+                out.println(stack.get(i));
             }
         }
     }
