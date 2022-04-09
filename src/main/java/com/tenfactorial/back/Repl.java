@@ -19,33 +19,33 @@ public class Repl {
         System.out.printf("%s %s%n", properties.getProperty("name"), properties.getProperty("version"));
         System.out.println("Enter :quit or :q to exit");
 
-        var reader = new BufferedReader(new InputStreamReader(System.in));
+        try (var reader = new BufferedReader(new InputStreamReader(System.in))) {
+            var evaluator = new Evaluator();
 
-        var evaluator = new Evaluator();
+            var run = 1;
+            List<Integer> stack = new LinkedList<>();
 
-        var run = 1;
-        List<Integer> stack = new LinkedList<>();
+            printPrompt(run);
+            String line = reader.readLine();
 
-        printPrompt(run);
-        String line = reader.readLine();
+            while (line != null && !isQuit(line)) {
+                if (line.equals("")) {
+                    printStack(stack);
+                    printPrompt(++run);
+                    line = reader.readLine();
+                    continue;
+                }
 
-        while (line != null && !isQuit(line)) {
-            if (line.equals("")) {
+                var listLine = Collections.singletonList(line);
+                try {
+                    stack = evaluator.evaluateProgram(listLine);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
                 printStack(stack);
                 printPrompt(++run);
                 line = reader.readLine();
-                continue;
             }
-
-            var listLine = Collections.singletonList(line);
-            try {
-                stack = evaluator.evaluateProgram(listLine);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-            printStack(stack);
-            printPrompt(++run);
-            line = reader.readLine();
         }
     }
 
