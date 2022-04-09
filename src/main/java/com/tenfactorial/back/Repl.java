@@ -53,13 +53,13 @@ public class Repl {
         var properties = new Properties();
         var propertiesFileName = "config.properties";
 
-        var inputStream = getClass().getClassLoader().getResourceAsStream(propertiesFileName);
-
-        if (inputStream != null) {
-            properties.load(inputStream);
-            return properties;
-        } else {
-            throw new FileNotFoundException("properties not found");
+        try (var inputStream = getClass().getClassLoader().getResourceAsStream(propertiesFileName)) {
+            if (inputStream != null) {
+                properties.load(inputStream);
+                return properties;
+            } else {
+                throw new FileNotFoundException("properties not found");
+            }
         }
     }
 
