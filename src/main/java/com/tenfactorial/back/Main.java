@@ -1,13 +1,18 @@
 package com.tenfactorial.back;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        if (args.length < 1) {
-            new Repl().run();
-        } else {
-            new Executor().execute(args[0]);
+        try (var commandArgs = Arrays.stream(args).skip(1)) {
+            var maybeFirst = commandArgs.findFirst();
+
+            if (maybeFirst.isPresent()) {
+                new Executor().execute(maybeFirst.get());
+            } else {
+                new Repl().run();
+            }
         }
     }
 }
